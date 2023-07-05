@@ -1,0 +1,24 @@
+# This is a Spack Environment file.
+#
+# It describes a set of packages to be installed, along with
+# configuration settings.
+spack:
+  # add package specs to the `specs` list
+  specs:
+  # - dramsim3@1.0.0+shared generator=ninja
+  - dramsim2@2.2.2+shared generator=ninja
+  # - flashdimmsim
+  - goblin-hmc-sim@8.0.0
+  - hbm-dramsim2@1.0.0
+  - hdf5@1.14.1-2+cxx+shared
+  - hybridsim@2.0.1+shared generator=ninja
+  - intel-pin@3.27
+  - llvm@16.0.5
+  - nvdimmsim@2.0.0+shared generator=ninja
+  - otf2@3.0
+  # - otf@1.12.5salmon
+  - ramulator@sst
+  - sst-dumpi@13.0.0
+  view: true
+  concretizer:
+    unify: true
