@@ -5,7 +5,23 @@
 spack:
   # add package specs to the `specs` list
   specs:
+  - dramsim2@2.2.2
+  # bad CMake
+  # - dramsim3@1.0.0
+  # bad linker flag on macOS
+  # - flashdimmsim@master
+  - goblin-hmc-sim@8.0.0
+  - hbm-dramsim2@1.0.0
+  - hdf5@1.14.1-2+cxx
+  - intel-pin@3.26
   - llvm@15.0.7
+  - openmpi@4.1.5
+  - otf2@3.0
+  # doesn't compile?
+  # - otf@1.12.5salmon
+  # spack ???
+  # - py-sympy@1.11.1
+  - ramulator@sst
   view: true
   concretizer:
     unify: true
