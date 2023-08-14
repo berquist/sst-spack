@@ -13,8 +13,12 @@ spack:
   - goblin-hmc-sim@8.0.0
   - hbm-dramsim2@1.0.0
   - hdf5@1.14.1-2+cxx
-  - intel-pin@3.26
+  # conflict with source files dumped into view
+  # - hybridsim@2.0.1
+  # stdlib problems on macOS?e
+  # - intel-pin@3.26
   - llvm@15.0.7
+  - nvdimmsim@2.0.0
   - openmpi@4.1.5
   - otf2@3.0
   # doesn't compile?
@@ -22,6 +26,7 @@ spack:
   # spack ???
   # - py-sympy@1.11.1
   - ramulator@sst
+  - sst-dumpi@13.0.0
   view: true
   concretizer:
     unify: true
