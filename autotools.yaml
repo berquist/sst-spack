@@ -15,9 +15,11 @@ spack:
   - hdf5@1.14.1-2+cxx
   # conflict with source files dumped into view
   # - hybridsim@2.0.1
-  # stdlib problems on macOS?e
+  # stdlib problems on macOS?
   # - intel-pin@3.26
   - llvm@15.0.7
+  # doesn't compile with Apple Clang?
+  # - musl@1.2.3
   - nvdimmsim@2.0.0
   - openmpi@4.1.5
   - otf2@3.0
