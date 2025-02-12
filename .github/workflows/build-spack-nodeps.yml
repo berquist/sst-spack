@@ -8,6 +8,8 @@ on:
   schedule:
     # 0215 daily
     - cron: '15 2 * * *'
+  workflow_call:
+  workflow_dispatch:
 
 permissions: {}
 
