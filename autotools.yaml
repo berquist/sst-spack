@@ -18,7 +18,7 @@ spack:
   # stdlib problems on macOS?
   # - intel-pin@3.26
   - llvm@15.0.7
-  # doesn't compile with Apple Clang?
+  # probably doesn't work on Apple ARM machine?
   # - musl@1.2.3
   - nvdimmsim@2.0.0
   - openmpi@4.1.5

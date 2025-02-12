@@ -1,0 +1,72 @@
+---
+name: Build SST within Spack
+
+# yamllint disable-line rule:truthy
+on:
+  pull_request:
+  push:
+  schedule:
+    # 0215 daily
+    - cron: '15 2 * * *'
+
+permissions: {}
+
+jobs:
+  install-spack:
+    name: os:${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-24.04
+          - macos-13
+          - macos-14
+        # All versions are in the same Spack environment for now
+        # version:
+        #   - '13.1.0'
+        #   - '14.0.0'
+        #   - '14.1.0'
+        #   - 'master'
+      fail-fast: false
+    permissions:
+      packages: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4
+        with:
+          persist-credentials: false
+      - name: Update system software
+        run: |
+          bash .github/workflows/install_os_deps.sh
+      - name: Clone Spack
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4
+        with:
+          persist-credentials: false
+          # Take the latest (develop) version.
+          repository: berquist/spack
+          ref: sst-core-fix-curses-linkage
+          path: spack
+      - name: Add Spack to PATH and set mirror name
+        run: |
+          echo "${PWD}/spack/bin" >> "${GITHUB_PATH}"
+          echo "mirror_name=github-container-registry" >> "${GITHUB_ENV}"
+      - name: Find compilers for Spack
+        run: |
+          spack compiler find --mixed-toolchain
+      - name: Print Spack configuration
+        run: |
+          spack config blame config
+          spack debug report
+      - name: Set credentials for mirror
+        run: |
+          eval "$(spack env activate --sh .)"
+          spack mirror set \
+              --oci-username "${GITHUB_ACTOR}" \
+              --oci-password "${{ secrets.GITHUB_TOKEN }}" \
+              "${mirror_name}"
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+      - name: Concretize and install environment
+        run: |
+          eval "$(spack env activate --sh .)"
+          spack concretize --deprecated --fresh --force
+          spack install -y --fail-fast
