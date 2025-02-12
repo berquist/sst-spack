@@ -58,9 +58,7 @@ jobs:
           spack debug report
       - name: Concretize and install environment
         run: |
-          eval "$(spack env activate --sh .)"
-          spack concretize --deprecated --fresh --force
-          spack install --deprecated -y --fail-fast
+          ./run.sh
         env:
           SPACK_OCI_USERNAME: "${{ github.actor }}"
           SPACK_OCI_PASSWORD: "${{ secrets.GITHUB_TOKEN }}"
