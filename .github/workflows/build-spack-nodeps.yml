@@ -56,17 +56,11 @@ jobs:
         run: |
           spack config blame config
           spack debug report
-      - name: Set credentials for mirror
-        run: |
-          eval "$(spack env activate --sh .)"
-          spack mirror set \
-              --oci-username "${GITHUB_ACTOR}" \
-              --oci-password "${{ secrets.GITHUB_TOKEN }}" \
-              "${mirror_name}"
-        env:
-          GITHUB_ACTOR: ${{ github.actor }}
       - name: Concretize and install environment
         run: |
           eval "$(spack env activate --sh .)"
           spack concretize --deprecated --fresh --force
-          spack install -y --fail-fast
+          spack install --deprecated -y --fail-fast
+        env:
+          SPACK_OCI_USERNAME: "${{ github.actor }}"
+          SPACK_OCI_PASSWORD: "${{ secrets.GITHUB_TOKEN }}"

@@ -8,6 +8,9 @@ spack:
       url: oci://ghcr.io/berquist/sst-spack
       signed: false
       autopush: true
+      access_pair:
+        id_variable: SPACK_OCI_USERNAME
+        secret_variable: SPACK_OCI_PASSWORD
   concretizer:
     unify: false
   specs:
