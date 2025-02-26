@@ -42,7 +42,8 @@ def make_all_elements_variants(version: str) -> List[str]:
     created_variant_lines = [
         make_all_variants(variants, True),
         make_all_variants(variants, False),
-        make_all_variants(["dramsim2"], True),
+        # TODO broken
+        # make_all_variants(["dramsim2"], True),
         # TODO broken
         # make_all_variants(["dramsim3"], True),
         # TODO not supported?
