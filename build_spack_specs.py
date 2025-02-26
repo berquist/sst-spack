@@ -42,19 +42,19 @@ def make_all_elements_variants(version: str) -> List[str]:
     created_variant_lines = [
         make_all_variants(variants, True),
         make_all_variants(variants, False),
-        make_all_variants(variants + ["dramsim2"], False),
+        make_all_variants(["dramsim2"], True),
         # TODO broken
-        # make_all_variants(variants + ["dramsim3"], False),
-        make_all_variants(variants + ["otf"], False),
-        make_all_variants(variants + ["otf2"], False),
+        # make_all_variants(["dramsim3"], True),
+        make_all_variants(["otf"], True),
+        make_all_variants(["otf2"], True),
     ]
     if platform.system() == "Linux":
         created_variant_lines.append(
-            make_all_variants(variants + ["pin"], False),
+            make_all_variants(["pin"], True),
         )
         if version > "14.1.0":
             created_variant_lines.append(
-                make_all_variants(variants + ["ariel_mpi"], False),
+                make_all_variants(["ariel_mpi"], True),
             )
 
     return created_variant_lines
