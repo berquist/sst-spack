@@ -21,12 +21,17 @@ _SAFE_VARIANTS_ELEMENTS = [
     # "nvdimmsim",
     "ramulator",
 ]
+_UNSAFE_VARIANTS_ELEMENTS = ["flashdimmsim", "nvdimmsim", "dramsim2", "dramsim3", "otf"]
 # _SAFE_VARIANTS_MACRO = []
 
 
-def make_all_variants(flags: Sequence[str], enable: bool) -> str:
+def make_all_variants(flags: Sequence[str], enable: bool) -> List[str]:
     enable_or_disable = "+" if enable else "~"
-    return " ".join(f"{enable_or_disable}{flag}" for flag in flags)
+    return [f"{enable_or_disable}{flag}" for flag in flags]
+
+
+def combine_flags(flags: Sequence[str]) -> str:
+    return " ".join(flags)
 
 
 def make_all_core_variants(version: str) -> List[str]:
@@ -34,32 +39,35 @@ def make_all_core_variants(version: str) -> List[str]:
         variants = _SAFE_VARIANTS_CORE + ["curses"]
     else:
         variants = _SAFE_VARIANTS_CORE
-    return [make_all_variants(variants, True), make_all_variants(variants, False)]
+    return [
+        combine_flags(flags)
+        for flags in [make_all_variants(variants, True), make_all_variants(variants, False)]
+    ]
 
 
 def make_all_elements_variants(version: str) -> List[str]:
-    variants = _SAFE_VARIANTS_ELEMENTS
+    unsafe_variants = make_all_variants(_UNSAFE_VARIANTS_ELEMENTS, False)
     created_variant_lines = [
-        make_all_variants(variants, True),
-        make_all_variants(variants, False),
+        make_all_variants(_SAFE_VARIANTS_ELEMENTS, True) + unsafe_variants,
+        make_all_variants(_SAFE_VARIANTS_ELEMENTS, False) + unsafe_variants,
         # TODO broken
         # make_all_variants(["dramsim2"], True),
         # TODO broken
         # make_all_variants(["dramsim3"], True),
         # TODO not supported?
         # make_all_variants(["otf"], True),
-        make_all_variants(["otf2"], True),
+        make_all_variants(["otf2"], True) + unsafe_variants,
     ]
     if platform.system() == "Linux":
         created_variant_lines.append(
-            make_all_variants(["pin"], True),
+            make_all_variants(["pin"], True) + unsafe_variants,
         )
         if version > "14.1.0":
             created_variant_lines.append(
-                make_all_variants(["ariel_mpi"], True),
+                make_all_variants(["ariel_mpi"], True) + unsafe_variants,
             )
 
-    return created_variant_lines
+    return [combine_flags(flags) for flags in created_variant_lines]
 
 
 def add_specs(*, sst_version: str, python_version: str) -> List[str]:
