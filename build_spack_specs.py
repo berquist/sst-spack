@@ -20,7 +20,8 @@ _SAFE_VARIANTS_ELEMENTS = [
     # "hybridsim",
     # TODO broken on modern compilers
     # "nvdimmsim",
-    "ramulator",
+    # TODO broken on modern compilers
+    # "ramulator",
 ]
 _UNSAFE_VARIANTS_ELEMENTS = [
     "flashdimmsim",
@@ -29,6 +30,7 @@ _UNSAFE_VARIANTS_ELEMENTS = [
     "dramsim2",
     "dramsim3",
     "otf",
+    "ramulator",
 ]
 # _SAFE_VARIANTS_MACRO = []
 
