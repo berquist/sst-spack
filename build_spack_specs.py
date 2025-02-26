@@ -12,12 +12,12 @@ _SAFE_VARIANTS_CORE = ["hdf5", "pdes_mpi", "preview", "profile", "trackevents", 
 # otf vs. otf2
 # pin ~darwin
 _SAFE_VARIANTS_ELEMENTS = [
-    # broken on modern compilers
+    # TODO broken on modern compilers
     # "flashdimmsim",
     "goblin",
     "hbm",
     "hybridsim",
-    # broken on modern compilers
+    # TODO broken on modern compilers
     # "nvdimmsim",
     "ramulator",
 ]
@@ -43,7 +43,8 @@ def make_all_elements_variants(version: str) -> List[str]:
         make_all_variants(variants, True),
         make_all_variants(variants, False),
         make_all_variants(variants + ["dramsim2"], False),
-        make_all_variants(variants + ["dramsim3"], False),
+        # TODO broken
+        # make_all_variants(variants + ["dramsim3"], False),
         make_all_variants(variants + ["otf"], False),
         make_all_variants(variants + ["otf2"], False),
     ]
