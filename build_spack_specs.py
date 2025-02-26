@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import platform
 import shlex
 import subprocess as sp
 from typing import List, Sequence
@@ -37,11 +38,11 @@ def make_all_elements_variants(version: str) -> List[str]:
         make_all_variants(variants + ["otf"], False),
         make_all_variants(variants + ["otf2"], False),
     ]
-    if True:
+    if platform.system() == "Linux":
         created_variant_lines.append(
             make_all_variants(variants + ["pin"], False),
         )
-        if version >= "14.1.0":
+        if version > "14.1.0":
             created_variant_lines.append(
                 make_all_variants(variants + ["ariel_mpi"], False),
             )
