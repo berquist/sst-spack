@@ -16,12 +16,20 @@ _SAFE_VARIANTS_ELEMENTS = [
     # "flashdimmsim",
     "goblin",
     "hbm",
-    "hybridsim",
+    # TODO requires dramsim2 and nvdimmsim
+    # "hybridsim",
     # TODO broken on modern compilers
     # "nvdimmsim",
     "ramulator",
 ]
-_UNSAFE_VARIANTS_ELEMENTS = ["flashdimmsim", "nvdimmsim", "dramsim2", "dramsim3", "otf"]
+_UNSAFE_VARIANTS_ELEMENTS = [
+    "flashdimmsim",
+    "nvdimmsim",
+    "hybridsim",
+    "dramsim2",
+    "dramsim3",
+    "otf",
+]
 # _SAFE_VARIANTS_MACRO = []
 
 
