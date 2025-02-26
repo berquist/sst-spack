@@ -11,7 +11,16 @@ _SAFE_VARIANTS_CORE = ["hdf5", "pdes_mpi", "preview", "profile", "trackevents", 
 # dramsim2 vs. dramsim3
 # otf vs. otf2
 # pin ~darwin
-_SAFE_VARIANTS_ELEMENTS = ["flashdimmsim", "goblin", "hbm", "hybridsim", "nvdimmsim", "ramulator"]
+_SAFE_VARIANTS_ELEMENTS = [
+    # broken on modern compilers
+    # "flashdimmsim",
+    "goblin",
+    "hbm",
+    "hybridsim",
+    # broken on modern compilers
+    # "nvdimmsim",
+    "ramulator",
+]
 # _SAFE_VARIANTS_MACRO = []
 
 
