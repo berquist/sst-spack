@@ -1,5 +1,5 @@
+.envrc
+.spack-env/
 spack.dot
 spack.lock
 spack.png
-.spack-env/
-.envrc

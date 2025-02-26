@@ -15,7 +15,10 @@ permissions: {}
 
 jobs:
   install-spack:
-    name: os:${{ matrix.os }}
+    name: >-
+      os:${{ matrix.os }} /
+      sst-version:${{ matrix.sst-spack-version }} /
+      python:${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -24,12 +27,13 @@ jobs:
           - ubuntu-24.04
           - macos-13
           - macos-14
-        # All versions are in the same Spack environment for now
-        # version:
-        #   - '13.1.0'
-        #   - '14.0.0'
-        #   - '14.1.0'
-        #   - 'master'
+        sst-spack-version:
+          - '13.1.0'
+          - '14.0.0'
+          - '14.1.0'
+          - 'master'
+        python-version:
+          - '3.10'
       fail-fast: false
     permissions:
       packages: write
@@ -61,7 +65,7 @@ jobs:
           spack debug report
       - name: Concretize and install environment
         run: |
-          ./run.sh
+          ./run.sh ${{ matrix.sst-spack-version }} ${{ matrix.python-version }}
         env:
           SPACK_OCI_USERNAME: "${{ github.actor }}"
           SPACK_OCI_PASSWORD: "${{ secrets.GITHUB_TOKEN }}"

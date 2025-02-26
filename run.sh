@@ -7,7 +7,12 @@ set -x
 
 set -euo pipefail
 
+sst_spack_version="${1}"
+python_version="${2}"
+
+git checkout -- spack.yaml
 eval "$(spack env activate --sh -d .)"
+python build_spack_specs.py "${sst_spack_version}" "${python_version}"
 spack concretize --fresh --deprecated --force
 spack graph --dot > spack.dot
 if command -v dot >& /dev/null; then

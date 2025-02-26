@@ -1,0 +1,6 @@
+[tool.mypy]
+strict = true
+# mypy_path = "$SPACK_ROOT/lib/spack"
+
+[tool.ruff]
+line-length = 100

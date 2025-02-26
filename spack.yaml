@@ -12,16 +12,4 @@ spack:
         id_variable: SPACK_OCI_USERNAME
         secret_variable: SPACK_OCI_PASSWORD
   concretizer:
-    unify: false
-  specs:
-    - sst-core@14.1.0 ~curses ^python@3.7
-    - sst-core@14.0.0 ~curses ^python@3.7
-    - sst-core@14.1.0 +curses ^python@3.7
-    - sst-core@14.0.0 +curses ^python@3.7
-    # re-specifying Python for elements because run requirement is separate from core linkage
-    - sst-elements@master ^sst-core@master ^python@3.7
-    - sst-elements@14.1.0 ^sst-core@14.1.0 +curses ^python@3.7
-    - sst-elements@14.0.0 ^sst-core@14.0.0 +curses ^python@3.7
-    - sst-elements@13.1.0 ^sst-core@13.1.0 ^python@3.7
-    - sst-macro@master +core ^sst-core@master ^python@3.7
-    - sst-macro@master ~core
+    unify: when_possible
