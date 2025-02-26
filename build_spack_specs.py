@@ -45,7 +45,8 @@ def make_all_elements_variants(version: str) -> List[str]:
         make_all_variants(["dramsim2"], True),
         # TODO broken
         # make_all_variants(["dramsim3"], True),
-        make_all_variants(["otf"], True),
+        # TODO not supported?
+        # make_all_variants(["otf"], True),
         make_all_variants(["otf2"], True),
     ]
     if platform.system() == "Linux":
