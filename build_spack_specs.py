@@ -15,7 +15,8 @@ _SAFE_VARIANTS_ELEMENTS = [
     # TODO broken on modern compilers
     # "flashdimmsim",
     "goblin",
-    "hbm",
+    # TODO problem on macOS
+    # "hbm",
     # TODO requires dramsim2 and nvdimmsim
     # "hybridsim",
     # TODO broken on modern compilers
@@ -24,11 +25,12 @@ _SAFE_VARIANTS_ELEMENTS = [
     # "ramulator",
 ]
 _UNSAFE_VARIANTS_ELEMENTS = [
-    "flashdimmsim",
-    "nvdimmsim",
-    "hybridsim",
     "dramsim2",
     "dramsim3",
+    "flashdimmsim",
+    "hbm",
+    "hybridsim",
+    "nvdimmsim",
     "otf",
     "ramulator",
 ]
