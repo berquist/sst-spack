@@ -82,14 +82,15 @@ def make_all_elements_variants(version: str) -> List[str]:
 
 def add_specs(*, sst_version: str, python_version: str) -> List[str]:
     specs: List[str] = list()
+    constraints = "^berkeley-db ~cxx ~stl"
     specs.extend(
-        f"sst-core@{sst_version} {variant_line} ^python@{python_version}"
+        f"sst-core@{sst_version} {variant_line} {constraints} ^python@{python_version}"
         for variant_line in make_all_core_variants(sst_version)
     )
     specs.extend(
         # re-specifying Python for elements because run requirement is
         # separate from core linkage, and it is safest to keep them in sync
-        f"sst-elements@{sst_version} {variant_line} ^sst-core@{sst_version} ^python@{python_version}"
+        f"sst-elements@{sst_version} {variant_line} {constraints} ^sst-core@{sst_version} ^python@{python_version}"
         for variant_line in make_all_elements_variants(sst_version)
     )
     # TODO macro
