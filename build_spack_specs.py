@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 
+"""
+build_spack_specs.py: Build a set of Spack specs that can exhaustively test
+the packaging of SST (core, elements, macro) via Spack.
+"""
+
 import platform
 import shlex
 import subprocess as sp
@@ -83,6 +88,7 @@ def make_all_elements_variants(version: str) -> List[str]:
 
 
 def add_specs(*, sst_version: str, python_version: str) -> List[str]:
+    """Form the list of specs to install in the env."""
     specs: List[str] = list()
     constraints = "^berkeley-db ~cxx ~stl"
     specs.extend(
@@ -95,13 +101,12 @@ def add_specs(*, sst_version: str, python_version: str) -> List[str]:
         f"sst-elements@{sst_version} {variant_line} {constraints} ^sst-core@{sst_version} ^python@{python_version}"
         for variant_line in make_all_elements_variants(sst_version)
     )
-    # TODO macro
-    # specs.extend(
-    #     (
-    #         f"sst-macro@{sst_version} +core ^sst-core@{sst_version} ^python@{python_version}",
-    #         f"sst-macro@{sst_version} ~core",
-    #     )
-    # )
+    specs.extend(
+        (
+            f"sst-macro@{sst_version} +core ^sst-core@{sst_version} ^python@{python_version}",
+            f"sst-macro@{sst_version} ~core",
+        )
+    )
 
     return specs
 
@@ -115,8 +120,6 @@ if __name__ == "__main__":
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
-    # for sst_version in ("13.1.0", "14.0.0", "14.1.0", "master"):
-    #     add_specs(sst_version, "3.7")
     specs = add_specs(sst_version=args.sst_version, python_version=args.python_version)
     if args.dry_run:
         from pprint import pprint
