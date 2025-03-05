@@ -63,7 +63,7 @@ jobs:
           persist-credentials: false
           # Take the latest (develop) version.
           repository: berquist/spack
-          ref: sst-core-fix-curses-linkage
+          ref: sst-modernize
           path: spack
       - name: Add Spack to PATH and set mirror name
         run: |
