@@ -33,7 +33,12 @@ jobs:
           - '14.1.0'
           - 'master'
         python-version:
+          - '3.6'
+          - '3.7'
+          - '3.8'
+          - '3.9'
           - '3.10'
+          - '3.11'
       fail-fast: false
     permissions:
       packages: write
