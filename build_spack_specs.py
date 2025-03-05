@@ -106,7 +106,8 @@ def add_specs(*, sst_version: str, python_version: str) -> List[str]:
             f"sst-macro@{sst_version} +core ^sst-core@{sst_version}+pdes_mpi ^python@{python_version}",
             f"sst-macro@{sst_version} +core ^sst-core@{sst_version}~pdes_mpi ^python@{python_version}",
             f"sst-macro@{sst_version} ~core ~pdes_mpi",
-            f"sst-macro@{sst_version} ~core +pdes_mpi",
+            # pdes_mpi requires core
+            # f"sst-macro@{sst_version} ~core +pdes_mpi",
         )
     )
 
