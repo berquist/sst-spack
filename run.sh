@@ -12,7 +12,12 @@ python_version="${2}"
 
 git checkout -- spack.yaml
 eval "$(spack env activate --sh -d .)"
-python build_spack_specs.py "${sst_spack_version}" "${python_version}"
+if command -v python 2>/dev/null; then
+    PYTHON_CMD="$(command -v python)"
+elif command -v python3 2>/dev/null; then
+    PYTHON_CMD="$(command -v python3)"
+fi
+"${PYTHON_CMD}" build_spack_specs.py "${sst_spack_version}" "${python_version}"
 spack concretize --fresh --deprecated --force
 spack graph --dot > spack.dot
 if command -v dot >& /dev/null; then
