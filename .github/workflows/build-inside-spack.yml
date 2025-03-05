@@ -39,6 +39,15 @@ jobs:
           - '3.9'
           - '3.10'
           - '3.11'
+          # Can't use these with Spack yet
+          # - '3.12'
+          # - '3.13'
+        exclude:
+          - os: macos-13
+            python-version: '3.6'
+        exclude:
+          - os: macos-14
+            python-version: '3.6'
       fail-fast: false
     permissions:
       packages: write
