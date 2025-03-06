@@ -101,15 +101,15 @@ def add_specs(*, sst_version: str, python_version: str) -> List[str]:
         f"sst-elements@{sst_version} {variant_line} {constraints} ^sst-core@{sst_version} ^python@{python_version}"
         for variant_line in make_all_elements_variants(sst_version)
     )
-    specs.extend(
-        (
-            f"sst-macro@{sst_version} +core ^sst-core@{sst_version}+pdes_mpi ^python@{python_version}",
-            f"sst-macro@{sst_version} +core ^sst-core@{sst_version}~pdes_mpi ^python@{python_version}",
-            f"sst-macro@{sst_version} ~core ~pdes_mpi",
-            # pdes_mpi requires core
-            # f"sst-macro@{sst_version} ~core +pdes_mpi",
-        )
-    )
+    # specs.extend(
+    #     (
+    #         f"sst-macro@{sst_version} +core ^sst-core@{sst_version}+pdes_mpi ^python@{python_version}",
+    #         f"sst-macro@{sst_version} +core ^sst-core@{sst_version}~pdes_mpi ^python@{python_version}",
+    #         f"sst-macro@{sst_version} ~core ~pdes_mpi",
+    #         # pdes_mpi requires core
+    #         # f"sst-macro@{sst_version} ~core +pdes_mpi",
+    #     )
+    # )
 
     return specs
 
