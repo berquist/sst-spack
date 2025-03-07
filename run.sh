@@ -18,7 +18,8 @@ if [ -z "${python_version}" ]; then
     exit 1
 fi
 if [ -z "${compiler_spec}" ]; then
-    compiler_spec_arg=""
+    # don't want to pass '' in the event the compiler spec isn't given
+    compiler_spec_arg=
 else
     compiler_spec_arg="--compiler-spec=${compiler_spec}"
 fi
@@ -31,7 +32,8 @@ if command -v python 2>/dev/null; then
 elif command -v python3 2>/dev/null; then
     PYTHON_CMD="$(command -v python3)"
 fi
-"${PYTHON_CMD}" build_spack_specs.py "${sst_spack_version}" "${python_version}" "${compiler_spec_arg}"
+# don't want to pass '' in the event the compiler spec isn't given
+"${PYTHON_CMD}" build_spack_specs.py "${sst_spack_version}" "${python_version}" ${compiler_spec_arg}
 spack concretize --fresh --deprecated --force
 spack graph --dot > spack.dot
 if command -v dot >& /dev/null; then
