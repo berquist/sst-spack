@@ -1,0 +1,74 @@
+---
+name: Build SST within Spack
+
+# yamllint disable-line rule:truthy
+on:
+  pull_request:
+  push:
+  schedule:
+    # 0215 daily
+    - cron: '15 2 * * *'
+  workflow_call:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  install-spack-inside-container:
+    name: >-
+      image:${{ matrix.image }} /
+      sst-version:${{ matrix.sst-spack-version }}
+    runs-on: ubuntu-24.04
+    container:
+      image: ${{ matrix.image }}
+    strategy:
+      matrix:
+        image:
+          - archlinux:base-devel-20250302.0.316047
+        sst-spack-version:
+          - '13.1.0'
+          - '14.0.0'
+          - '14.1.0'
+          - 'master'
+        python-version:
+          - '3.6'
+          - '3.7'
+          - '3.8'
+          - '3.9'
+          - '3.10'
+          - '3.11'
+      fail-fast: false
+    permissions:
+      packages: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4
+        with:
+          persist-credentials: false
+      - name: Update system software
+        run: |
+          bash .github/workflows/install_os_deps.sh
+      - name: Clone Spack
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4
+        with:
+          persist-credentials: false
+          # Take the latest (develop) version.
+          repository: berquist/spack
+          ref: sst-core-fix-curses-linkage
+          path: spack
+      - name: Add Spack to PATH and set mirror name
+        run: |
+          echo "${PWD}/spack/bin" >> "${GITHUB_PATH}"
+          echo "mirror_name=github-container-registry" >> "${GITHUB_ENV}"
+      - name: Find compilers for Spack
+        run: |
+          spack compiler find --mixed-toolchain
+      - name: Print Spack configuration
+        run: |
+          spack config blame config
+          spack debug report
+      - name: Concretize and install environment
+        run: |
+          ./run.sh ${{ matrix.sst-spack-version }} ${{ matrix.python-version }}
+        env:
+          SPACK_OCI_USERNAME: "${{ github.actor }}"
+          SPACK_OCI_PASSWORD: "${{ secrets.GITHUB_TOKEN }}"
