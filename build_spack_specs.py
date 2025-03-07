@@ -8,7 +8,7 @@ the packaging of SST (core, elements, macro) via Spack.
 import platform
 import shlex
 import subprocess as sp
-from typing import List, Sequence
+from typing import List, Optional, Sequence
 
 
 # TODO consider building MPI independently of all other variants
@@ -48,7 +48,7 @@ def make_all_variants(flags: Sequence[str], enable: bool) -> List[str]:
 
 
 def combine_flags(flags: Sequence[str]) -> str:
-    return " ".join(flags)
+    return " ".join(flag for flag in flags if flag)
 
 
 def make_all_core_variants(version: str) -> List[str]:
@@ -87,29 +87,49 @@ def make_all_elements_variants(version: str) -> List[str]:
     return [combine_flags(flags) for flags in created_variant_lines]
 
 
-def add_specs(*, sst_version: str, python_version: str) -> List[str]:
+def add_specs(*, sst_version: str, python_version: str, compiler_spec: Optional[str]) -> List[str]:
     """Form the list of specs to install in the env."""
     specs: List[str] = list()
     constraints = "^berkeley-db ~cxx ~stl"
+    if compiler_spec is None:
+        compiler_spec = ""
     specs.extend(
-        f"sst-core@{sst_version} {variant_line} {constraints} ^python@{python_version}"
+        combine_flags(
+            (
+                f"sst-core@{sst_version}",
+                compiler_spec,
+                variant_line,
+                constraints,
+                f"^python@{python_version}",
+            )
+        )
         for variant_line in make_all_core_variants(sst_version)
     )
     specs.extend(
-        # re-specifying Python for elements because run requirement is
-        # separate from core linkage, and it is safest to keep them in sync
-        f"sst-elements@{sst_version} {variant_line} {constraints} ^sst-core@{sst_version} ^python@{python_version}"
+        combine_flags(
+            (
+                f"sst-elements@{sst_version}",
+                compiler_spec,
+                variant_line,
+                constraints,
+                f"^sst-core@{sst_version}",
+                # re-specifying Python for elements because run requirement is
+                # separate from core linkage, and it is safest to keep them in
+                # sync
+                f"^python@{python_version}",
+            )
+        )
         for variant_line in make_all_elements_variants(sst_version)
     )
-    # specs.extend(
-    #     (
-    #         f"sst-macro@{sst_version} +core ^sst-core@{sst_version}+pdes_mpi ^python@{python_version}",
-    #         f"sst-macro@{sst_version} +core ^sst-core@{sst_version}~pdes_mpi ^python@{python_version}",
-    #         f"sst-macro@{sst_version} ~core ~pdes_mpi",
-    #         # pdes_mpi requires core
-    #         # f"sst-macro@{sst_version} ~core +pdes_mpi",
-    #     )
-    # )
+    specs.extend(
+        (
+            f"sst-macro@{sst_version} {compiler_spec} +core ^sst-core@{sst_version}+pdes_mpi ^python@{python_version}",
+            f"sst-macro@{sst_version} {compiler_spec} +pdes_mpi ^python@{python_version}",
+            f"sst-macro@{sst_version} {compiler_spec} ~core ~pdes_mpi",
+            # pdes_mpi requires core
+            # f"sst-macro@{sst_version} ~core +pdes_mpi {compiler_spec}",
+        )
+    )
 
     return specs
 
@@ -121,9 +141,14 @@ if __name__ == "__main__":
     parser.add_argument("sst_version", type=str)
     parser.add_argument("python_version", type=str)
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--compiler-spec", type=str, default=None)
     args = parser.parse_args()
 
-    specs = add_specs(sst_version=args.sst_version, python_version=args.python_version)
+    specs = add_specs(
+        sst_version=args.sst_version,
+        python_version=args.python_version,
+        compiler_spec=args.compiler_spec,
+    )
     if args.dry_run:
         from pprint import pprint
 
