@@ -44,6 +44,17 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4
         with:
           persist-credentials: false
+      - name: Install system-level dependencies (Unix)
+        run: |
+          if [[ "${USE_SUDO}" == true ]]; then
+              sudo bash .github/workflows/install_os_deps.sh
+          else
+              bash .github/workflows/install_os_deps.sh
+          fi
+        env:
+          USE_SUDO: true
+        shell: bash
+        if: ${{ runner.os != 'Windows' }}
       - name: Update system software
         run: |
           bash .github/workflows/install_os_deps.sh
