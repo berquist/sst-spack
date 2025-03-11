@@ -52,7 +52,7 @@ jobs:
               bash .github/workflows/install_os_deps.sh
           fi
         env:
-          USE_SUDO: true
+          USE_SUDO: false
         shell: bash
         if: ${{ runner.os != 'Windows' }}
       - name: Update system software
