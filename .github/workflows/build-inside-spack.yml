@@ -63,7 +63,7 @@ jobs:
               bash .github/workflows/install_os_deps.sh
           fi
         env:
-          USE_SUDO: false
+          USE_SUDO: true
         shell: bash
         if: ${{ runner.os != 'Windows' }}
       - name: Clone Spack

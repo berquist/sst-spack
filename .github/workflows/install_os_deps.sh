@@ -17,6 +17,6 @@ elif command -v apt-get; then
     apt-get update -y --no-install-recommends
     apt-get install -y --no-install-recommends python3
 elif command -v pacman >/dev/null 2>&1; then
-    pacman -Syu
+    pacman -Syu --noconfirm
     pacman -S --noconfirm python
 fi
