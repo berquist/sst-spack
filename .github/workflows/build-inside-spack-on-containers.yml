@@ -1,5 +1,5 @@
 ---
-name: Build SST within Spack
+name: Build SST within Spack inside containers
 
 # yamllint disable-line rule:truthy
 on:
