@@ -24,7 +24,8 @@ jobs:
       matrix:
         os:
           - ubuntu-22.04
-          - ubuntu-24.04
+          # not compiling elements with gcc 14.2 is a headache
+          # - ubuntu-24.04
           - macos-13
           - macos-14
         sst-spack-version:
