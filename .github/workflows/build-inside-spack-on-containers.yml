@@ -46,6 +46,7 @@ jobs:
       - name: Install Git (Unix)
         run: |
           if command -v pacman >/dev/null 2>&1; then
+              pacman -Syu --noconfirm
               pacman -S --noconfirm git
           fi
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4
