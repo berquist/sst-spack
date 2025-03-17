@@ -45,7 +45,10 @@ jobs:
     steps:
       - name: Install Git (Unix)
         run: |
-          if command -v pacman >/dev/null 2>&1; then
+          if command -v dnf >/dev/null 2>&1; then
+              dnf upgrade -y
+              dnf install -y git
+          elif command -v pacman >/dev/null 2>&1; then
               pacman -Syu --noconfirm
               pacman -S --noconfirm git
           fi
