@@ -14,8 +14,8 @@ if command -v brew; then
 elif command -v dnf >/dev/null 2>&1; then
     dnf upgrade -y
     dnf install -y \
-        g++ \
-        gfortran \
+        gcc-c++ \
+        gcc-gfortran \
         git \
         python3.12 \
         python3.12-pip \
