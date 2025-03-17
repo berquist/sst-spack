@@ -85,6 +85,9 @@ jobs:
         run: |
           spack config blame config
           spack debug report
+      - name: Repository ownership
+        run: |
+          git config --global --add safe.directory /__w/sst-spack/sst-spack
       - name: Concretize and install environment
         run: |
           ./run.sh ${{ matrix.sst-spack-version }} ${{ matrix.python-version }}
