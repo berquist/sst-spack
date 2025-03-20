@@ -60,6 +60,16 @@ jobs:
     permissions:
       packages: write
     steps:
+      - name: Install Git (Unix)
+        run: |
+          if command -v dnf >/dev/null 2>&1; then
+              dnf upgrade -y
+              dnf install -y git
+          elif command -v pacman >/dev/null 2>&1; then
+              pacman -Syu --noconfirm
+              pacman -S --noconfirm git
+          fi
+        if: ${{ runner.os != 'Windows' }}
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4
         with:
           persist-credentials: false
@@ -93,10 +103,9 @@ jobs:
         run: |
           spack config blame config
           spack debug report
-      - name: Install local non-Spack Python dependencies
+      - name: Repository ownership
         run: |
-          python -m pip install -U pip setuptools
-          python -m pip install pyyaml
+          git config --global --add safe.directory /__w/sst-spack/sst-spack
       - name: Concretize and install environment
         run: |
           ./run.sh ${{ matrix.sst-spack-version }} ${{ matrix.python-version }}

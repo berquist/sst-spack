@@ -11,6 +11,7 @@ if command -v brew; then
     # Problems with Python overwriting files in /usr/local/bin
     # brew update
     # brew upgrade
+    python -m pip install pyyaml
 elif command -v dnf >/dev/null 2>&1; then
     dnf upgrade -y
     dnf install -y \
@@ -22,7 +23,9 @@ elif command -v dnf >/dev/null 2>&1; then
         python3.12-pyyaml
 elif command -v apt-get; then
     apt-get update -y --no-install-recommends
-    apt-get install -y --no-install-recommends python3
+    apt-get install -y --no-install-recommends \
+            python3 \
+            python3-yaml
 elif command -v pacman >/dev/null 2>&1; then
     pacman -Syu --noconfirm
     pacman -S --noconfirm \
