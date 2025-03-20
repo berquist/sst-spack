@@ -18,6 +18,7 @@ elif command -v dnf >/dev/null 2>&1; then
         gcc-c++ \
         gcc-gfortran \
         git \
+        patch \
         python3.12 \
         python3.12-pip \
         python3.12-pyyaml
@@ -29,6 +30,7 @@ elif command -v apt-get; then
 elif command -v pacman >/dev/null 2>&1; then
     pacman -Syu --noconfirm
     pacman -S --noconfirm \
+           gcc-fortran \
            git \
            python \
            python-pip \
