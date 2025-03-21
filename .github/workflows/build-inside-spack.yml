@@ -17,7 +17,7 @@ jobs:
   install-spack:
     name: >-
       os:${{ matrix.os }} /
-      sst-version:${{ matrix.sst-spack-version }} /
+      sst:${{ matrix.sst-spack-version }} /
       python:${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
     strategy:
