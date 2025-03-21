@@ -40,6 +40,11 @@ jobs:
           - '3.9'
           - '3.10'
           - '3.11'
+        exclude:
+          # Python isn't compiling with `math` leading to `python-venv`
+          # install failure
+          - image: archlinux:base-devel-20250302.0.316047
+            python-version: '3.6'
       fail-fast: false
     permissions:
       packages: write
