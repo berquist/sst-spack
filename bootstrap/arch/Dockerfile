@@ -1,4 +1,4 @@
-FROM archlinux:base-devel-20250302.0.316047
+FROM archlinux:base-devel-20250302.0.316047@sha256:61b9b05cf6a7a42aa1a32f0b00c92dcfc0b6acf3af2db1b86ab29f6605b21401
 
 RUN pacman -Syu --noconfirm \
     && pacman -S --noconfirm \
