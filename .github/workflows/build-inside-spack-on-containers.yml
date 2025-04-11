@@ -118,7 +118,7 @@ jobs:
           echo "mirror_name=github-container-registry" >> "${GITHUB_ENV}"
       - name: Find compilers for Spack
         run: |
-          spack compiler find --mixed-toolchain
+          spack compiler find
       - name: Print Spack configuration
         run: |
           spack config blame config
