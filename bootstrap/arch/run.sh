@@ -1,3 +1,5 @@
 #!/bin/sh
 
-podman build -t arch . && podman run --rm -it arch /bin/bash
+name=arch
+podman build --no-cache -t ${name} . \
+    && podman run --rm -it ${name} /bin/bash

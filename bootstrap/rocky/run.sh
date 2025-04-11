@@ -1,3 +1,5 @@
 #!/bin/sh
 
-podman build -t rocky . && podman run --rm -it rocky /bin/bash
+name=rocky
+podman build --no-cache -t ${name} . \
+    && podman run --rm -it ${name} /bin/bash

@@ -1,3 +1,5 @@
 #!/bin/sh
 
-podman build -t ubuntu . && podman run --rm -it ubuntu /bin/bash
+name=ubuntu
+podman build --no-cache -t ${name} . \
+    && podman run --rm -it ${name} /bin/bash
