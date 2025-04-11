@@ -12,6 +12,6 @@ RUN spack bootstrap now
 RUN spack env create -d . \
     && eval `spack env activate --sh -d .` \
     && spack add python@3.9 \
-    && spack add python-venv \
+    && spack add sst-core@master ~pdes_mpi \
     && spack concretize --fresh --deprecated --force
 #RUN spack install --deprecated -y --fail-fast
