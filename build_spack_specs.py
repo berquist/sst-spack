@@ -89,7 +89,7 @@ def make_all_elements_variants(version: str) -> List[str]:
 def add_specs(*, sst_version: str, python_version: str, compiler_spec: Optional[str]) -> List[str]:
     """Form the list of specs to install in the env."""
     specs: List[str] = list()
-    constraints = "^berkeley-db ~cxx ~stl"
+    constraints = ""
     if compiler_spec is None:
         compiler_spec = ""
     specs.extend(
