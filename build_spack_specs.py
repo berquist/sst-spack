@@ -10,7 +10,6 @@ import shlex
 import subprocess as sp
 from typing import List, Optional, Sequence
 
-
 # TODO consider building MPI independently of all other variants
 _SAFE_VARIANTS_CORE = ["hdf5", "pdes_mpi", "preview", "profile", "trackevents", "trackperf", "zlib"]
 # dramsim2 vs. dramsim3
@@ -126,7 +125,7 @@ def add_specs(*, sst_version: str, python_version: str, compiler_spec: Optional[
             f"sst-macro@{sst_version} {compiler_spec} +core ^sst-core@{sst_version}+pdes_mpi ^python@{python_version}",
             f"sst-macro@{sst_version} {compiler_spec} +pdes_mpi ^python@{python_version}",
             f"sst-macro@{sst_version} {compiler_spec} ~core ~pdes_mpi",
-            # pdes_mpi requires core
+            # pdes_mpi requires core, so this spec will never be satisfiable
             # f"sst-macro@{sst_version} ~core +pdes_mpi {compiler_spec}",
         )
     )
