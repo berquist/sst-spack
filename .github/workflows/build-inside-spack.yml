@@ -24,10 +24,9 @@ jobs:
       matrix:
         os:
           - ubuntu-22.04
-          # not compiling elements with gcc 14.2 is a headache
-          # - ubuntu-24.04
-          - macos-13
+          - ubuntu-24.04
           - macos-14
+          - macos-15
         sst-spack-version:
           - '13.1.0'
           - '14.0.0'
@@ -43,21 +42,6 @@ jobs:
           - '3.11'
           - '3.12'
           - '3.13'
-        exclude:
-          # Python version not compilable with Apple Clang
-          - os: macos-13
-            python-version: '3.6'
-          - os: macos-14
-            python-version: '3.6'
-          # Reduce testing load
-          - os: macos-13
-            python-version: '3.8'
-          - os: macos-13
-            python-version: '3.9'
-          # - os: macos-13
-          #   python-version: '3.10'
-          - os: macos-13
-            python-version: '3.11'
       fail-fast: false
     permissions:
       packages: write
