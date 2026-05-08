@@ -29,53 +29,10 @@ jobs:
           - rockylinux:8.9.20231119
           - rockylinux:9.3.20231119
         sst-spack-version:
-          - '13.1.0'
-          - '14.0.0'
-          - '14.1.0'
-          - 'master'
+          - '15.0.0'
         python-version:
-          - '3.6'
-          - '3.7'
-          - '3.8'
           - '3.9'
-          - '3.10'
-          - '3.11'
-          - '3.12'
-          - '3.13'
-        exclude:
-          # Python isn't compiling with `math` leading to `python-venv`
-          # install failure
-          - image: archlinux:base-devel-20250302.0.316047
-            python-version: '3.6'
-          # Reduce testing load
-          - image: rockylinux:8.9.20231119
-            python-version: '3.7'
-          - image: rockylinux:8.9.20231119
-            python-version: '3.8'
-          - image: rockylinux:8.9.20231119
-            python-version: '3.9'
-          - image: rockylinux:8.9.20231119
-            python-version: '3.10'
-          - image: rockylinux:8.9.20231119
-            python-version: '3.11'
-          - image: rockylinux:8.9.20231119
-            python-version: '3.12'
-          - image: rockylinux:8.9.20231119
-            python-version: '3.13'
-          - image: rockylinux:9.3.20231119
-            python-version: '3.7'
-          - image: rockylinux:9.3.20231119
-            python-version: '3.8'
-          - image: rockylinux:9.3.20231119
-            python-version: '3.9'
-          - image: rockylinux:9.3.20231119
-            python-version: '3.10'
-          - image: rockylinux:9.3.20231119
-            python-version: '3.11'
-          - image: rockylinux:9.3.20231119
-            python-version: '3.12'
-          - image: rockylinux:9.3.20231119
-            python-version: '3.13'
+          - '3.14'
       fail-fast: false
     permissions:
       packages: write
