@@ -30,7 +30,7 @@ jobs:
           - macos-15
           - macos-26
         sst-spack-version:
-          - '15.1.0'
+          - '16.0.0'
         python-version:
           - '3.9'
           - '3.14'
@@ -73,6 +73,21 @@ jobs:
         run: |
           echo "${PWD}/spack/bin" >> "${GITHUB_PATH}"
           echo "mirror_name=github-container-registry" >> "${GITHUB_ENV}"
+      - name: Clone Spack package repo
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4
+        with:
+          persist-credentials: false
+          # Take the latest (develop) version.
+          repository: berquist/spack-packages
+          ref: sst-16
+          path: spack-packages
+      - name: Set Spack package repo
+        run: |
+          spack repo set --destination "${PWD}/"spack-packages builtin
+          spack repo list
+      - name: Bootstrap Spack
+        run: |
+          spack bootstrap now
       - name: Find compilers for Spack
         run: |
           spack compiler find
