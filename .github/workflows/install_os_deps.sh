@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # install_os_deps.sh: Install dependencies at the operating system level
 # needed for GitHub CI runs.
 
-set -euo pipefail
+set -eu -o pipefail
 
 export DEBIAN_FRONTEND=noninteractive
 if command -v brew; then
@@ -12,10 +12,11 @@ if command -v brew; then
     # brew update
     # brew upgrade
     python -m pip install pyyaml
-elif command -v dnf >/dev/null 2>&1; then
+elif command -v dnf > /dev/null 2>&1; then
     dnf upgrade -y
     dnf install -y \
         bzip2 \
+        findutils \
         gcc-c++ \
         gcc-gfortran \
         git \
@@ -28,18 +29,19 @@ elif command -v dnf >/dev/null 2>&1; then
 elif command -v apt-get; then
     apt-get update -y --no-install-recommends
     apt-get install -y --no-install-recommends \
-            bzip2 \
-            git \
-            python3 \
-            python3-yaml \
-            unzip \
-            xz-utils
-elif command -v pacman >/dev/null 2>&1; then
+        bzip2 \
+        git \
+        python3 \
+        python3-yaml \
+        unzip \
+        xz-utils
+elif command -v pacman > /dev/null 2>&1; then
     pacman -Syu --noconfirm
     pacman -S --noconfirm \
-           gcc-fortran \
-           git \
-           python \
-           python-pip \
-           python-pyyaml
+        findutils \
+        gcc-fortran \
+        git \
+        python \
+        python-pip \
+        python-pyyaml
 fi
