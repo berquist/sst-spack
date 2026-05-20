@@ -96,10 +96,10 @@ def add_specs(*, sst_version: str, python_version: str, compiler_spec: Optional[
         combine_flags(
             (
                 f"sst-core@{sst_version}",
-                compiler_spec,
                 variant_line,
                 constraints,
                 f"^python@{python_version}",
+                compiler_spec,
             )
         )
         for variant_line in make_all_core_variants(sst_version)
@@ -108,7 +108,6 @@ def add_specs(*, sst_version: str, python_version: str, compiler_spec: Optional[
         combine_flags(
             (
                 f"sst-elements@{sst_version}",
-                compiler_spec,
                 variant_line,
                 constraints,
                 f"^sst-core@{sst_version}",
@@ -116,15 +115,16 @@ def add_specs(*, sst_version: str, python_version: str, compiler_spec: Optional[
                 # separate from core linkage, and it is safest to keep them in
                 # sync
                 f"^python@{python_version}",
+                compiler_spec,
             )
         )
         for variant_line in make_all_elements_variants(sst_version)
     )
     specs.extend(
         (
-            f"sst-macro@{sst_version} {compiler_spec} +core ^sst-core@{sst_version}+pdes_mpi ^python@{python_version}",
-            f"sst-macro@{sst_version} {compiler_spec} +pdes_mpi ^python@{python_version}",
-            f"sst-macro@{sst_version} {compiler_spec} ~core ~pdes_mpi",
+            f"sst-macro@{sst_version} +core ^sst-core@{sst_version}+pdes_mpi ^python@{python_version} {compiler_spec}",
+            f"sst-macro@{sst_version} +pdes_mpi ^python@{python_version} {compiler_spec}",
+            f"sst-macro@{sst_version} ~core ~pdes_mpi {compiler_spec}",
             # pdes_mpi requires core, so this spec will never be satisfiable
             # f"sst-macro@{sst_version} ~core +pdes_mpi {compiler_spec}",
         )
