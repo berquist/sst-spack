@@ -5,7 +5,7 @@ spack:
       padded_length: 128
   mirrors:
     github-container-registry:
-      url: oci://ghcr.io/berquist/sst-spack
+      url: oci://ghcr.io/berquist/sst-spack-packages
       signed: false
       autopush: true
       access_pair:

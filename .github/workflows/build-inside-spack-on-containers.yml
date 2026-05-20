@@ -102,4 +102,4 @@ jobs:
           ./run.sh ${{ matrix.sst-spack-version }} ${{ matrix.python-version }}
         env:
           SPACK_OCI_USERNAME: "${{ github.actor }}"
-          SPACK_OCI_PASSWORD: "${{ secrets.GITHUB_TOKEN }}"
+          SPACK_OCI_PASSWORD: "${{ secrets.PACKAGE_REPO_TOKEN }}"
