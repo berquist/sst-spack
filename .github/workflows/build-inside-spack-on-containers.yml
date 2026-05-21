@@ -70,6 +70,7 @@ jobs:
           # Take the latest (develop) version.
           repository: spack/spack
           path: spack
+          ref: e88eef45e3633db6a5705d403acaef552d520fe2
       - name: Add Spack to PATH and set mirror name
         run: |
           echo "${PWD}/spack/bin" >> "${GITHUB_PATH}"
