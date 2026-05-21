@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # shellcheck disable=SC2086
 # https://web.archive.org/web/20230401201759/https://wiki.bash-hackers.org/scripting/debuggingtips#making_xtrace_more_useful
@@ -12,9 +12,11 @@ python_version="${2}"
 compiler_spec="${3}"
 
 if [ -z "${sst_spack_version}" ]; then
+    echo "pass SST Spack version as first argument" >&2
     exit 1
 fi
 if [ -z "${python_version}" ]; then
+    echo "pass Python Spack version as second argument" >&2
     exit 1
 fi
 if [ -z "${compiler_spec}" ]; then
