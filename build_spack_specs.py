@@ -130,15 +130,19 @@ def add_specs(
             for variant_line in make_all_elements_variants(sst_version)
         )
     if add_macro:
-        specs.extend(
-            (
-                f"sst-macro@{sst_version} +core ^sst-core@{sst_version}+pdes_mpi ^python@{python_version} {compiler_spec}",
-                f"sst-macro@{sst_version} +pdes_mpi ^python@{python_version} {compiler_spec}",
-                f"sst-macro@{sst_version} ~core ~pdes_mpi {compiler_spec}",
-                # pdes_mpi requires core, so this spec will never be satisfiable
-                # f"sst-macro@{sst_version} ~core +pdes_mpi {compiler_spec}",
+        # TODO this is because the binutils dependency isn't compiling
+        # properly on Tahoe + apple-clang@21; not sure yet which is the
+        # controlling variable
+        if platform.system() != "Darwin":
+            specs.extend(
+                (
+                    f"sst-macro@{sst_version} +core ^sst-core@{sst_version}+pdes_mpi ^python@{python_version} {compiler_spec}",
+                    f"sst-macro@{sst_version} +pdes_mpi ^python@{python_version} {compiler_spec}",
+                    f"sst-macro@{sst_version} ~core ~pdes_mpi {compiler_spec}",
+                    # pdes_mpi requires core, so this spec will never be satisfiable
+                    # f"sst-macro@{sst_version} ~core +pdes_mpi {compiler_spec}",
+                )
             )
-        )
 
     return specs
 
@@ -158,7 +162,7 @@ if __name__ == "__main__":
         python_version=args.python_version,
         compiler_spec=args.compiler_spec,
         add_elements=True,
-        add_macro=False,
+        add_macro=True,
     )
     if args.dry_run:
         from pprint import pprint
