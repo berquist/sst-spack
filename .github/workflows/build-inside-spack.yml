@@ -90,6 +90,7 @@ jobs:
       - name: Bootstrap Spack
         run: |
           spack bootstrap now
+          spack bootstrap status
       - name: Find compilers for Spack
         run: |
           spack compiler find
