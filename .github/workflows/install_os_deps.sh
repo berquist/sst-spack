@@ -30,6 +30,9 @@ elif command -v apt-get > /dev/null 2>&1; then
     apt-get update -y --no-install-recommends
     apt-get install -y --no-install-recommends \
         bzip2 \
+        g++ \
+        gcc \
+        gfortran \
         git \
         python3 \
         python3-yaml \
