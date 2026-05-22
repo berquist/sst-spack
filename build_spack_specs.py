@@ -138,7 +138,7 @@ def add_specs(
                 (
                     f"sst-macro@{sst_version} +core ^sst-core@{sst_version}+pdes_mpi ^python@{python_version} {compiler_spec}",
                     f"sst-macro@{sst_version} +pdes_mpi ^python@{python_version} {compiler_spec}",
-                    f"sst-macro@{sst_version} ~core ~pdes_mpi {compiler_spec}",
+                    f"sst-macro@{sst_version} ~core ~pdes_mpi ^python@{python_version} {compiler_spec}",
                     # pdes_mpi requires core, so this spec will never be satisfiable
                     # f"sst-macro@{sst_version} ~core +pdes_mpi {compiler_spec}",
                 )
