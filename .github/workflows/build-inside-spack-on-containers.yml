@@ -32,6 +32,7 @@ jobs:
           - rockylinux/rockylinux:8.10.20240528
           # container issues?
           # - rockylinux/rockylinux:9.7.20251123
+          - rockylinux/rockylinux:10.1.20251126
           - ubuntu:jammy-20260509
           - ubuntu:noble-20260410
           # Can't use default GCC 15 with Pin
