@@ -38,6 +38,7 @@ jobs:
           - rockylinux/rockylinux:8.10.20240528@sha256:e8a49c5403b687db05d4d67333fa45808fbe74f36e683cec7abb1f7d0f2338c6
           # container issues?
           # - rockylinux/rockylinux:9.7.20251123@sha256:53f4c6dcb34e1403bd93207351f0af9a593610faeb7165cb8a037346765199b0
+          - quay.io/rockylinux/rockylinux:10.1@sha256:b86cb4305db4c29abb1e3a1257fefccc184b5e4a94378e02844b340845ef9460
           - ubuntu:jammy-20260509@sha256:4f838adc7181d9039ac795a7d0aba05a9bd9ecd480d294483169c5def983b64d
           - ubuntu:noble-20260410@sha256:c4a8d5503dfb2a3eb8ab5f807da5bc69a85730fb49b5cfca2330194ebcc41c7b
           # Can't use default GCC 15 with Pin
