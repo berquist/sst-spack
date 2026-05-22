@@ -18,7 +18,8 @@ _SAFE_VARIANTS_CORE = ["hdf5", "pdes_mpi", "preview", "profile", "trackevents", 
 _SAFE_VARIANTS_ELEMENTS = [
     # TODO broken on modern compilers
     # "flashdimmsim",
-    "goblin",
+    # TODO build cache problems
+    # "goblin",
     # TODO problem on macOS
     # "hbm",
     # TODO requires dramsim2 and nvdimmsim
