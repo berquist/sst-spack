@@ -34,6 +34,7 @@ elif command -v apt-get > /dev/null 2>&1; then
         gcc \
         gfortran \
         git \
+        patch \
         python3 \
         python3-yaml \
         unzip \
