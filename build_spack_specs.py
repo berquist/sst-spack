@@ -24,6 +24,7 @@ _SAFE_VARIANTS_ELEMENTS = [
     # "hbm",
     # TODO requires dramsim2 and nvdimmsim
     # "hybridsim",
+    "otf2",
     # TODO broken on modern compilers
     # "nvdimmsim",
     # TODO broken on modern compilers
@@ -73,7 +74,6 @@ def make_all_elements_variants(version: str) -> List[str]:
         # make_all_variants(["dramsim3"], True),
         # TODO not supported?
         # make_all_variants(["otf"], True),
-        make_all_variants(["otf2"], True) + unsafe_variants,
     ]
     if platform.system() == "Linux":
         created_variant_lines.append(
