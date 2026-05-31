@@ -25,14 +25,19 @@ jobs:
     strategy:
       matrix:
         image:
-          # can't use default GCC 16 with Pin
+          # Can't use default GCC 16 with Pin
+          # https://github.com/berquist/sst-spack/issues/24
+          #
           # - archlinux:base-devel-20260503.0.523481
           - rockylinux/rockylinux:8.10.20240528
           # container issues?
           # - rockylinux/rockylinux:9.7.20251123
           - ubuntu:jammy-20260509
           - ubuntu:noble-20260410
-          - ubuntu:resolute-20260421
+          # Can't use default GCC 15 with Pin
+          # https://github.com/berquist/sst-spack/issues/24
+          #
+          # - ubuntu:resolute-20260421
         sst-spack-version:
           - '16.0.0'
         python-version:
