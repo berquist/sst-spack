@@ -23,8 +23,6 @@ jobs:
     strategy:
       matrix:
         os:
-          - ubuntu-22.04
-          - ubuntu-24.04
           # crazy compilation errors
           # - ubuntu-24.04-arm
           - macos-15
@@ -43,6 +41,9 @@ jobs:
           if command -v dnf >/dev/null 2>&1; then
               dnf upgrade -y
               dnf install -y git
+          elif command -v apt-get; then
+              apt-get update -y --no-install-recommends
+              apt-get install -y --no-install-recommends git ca-certificates
           elif command -v pacman >/dev/null 2>&1; then
               pacman -Syu --noconfirm
               pacman -S --noconfirm git
@@ -89,6 +90,7 @@ jobs:
       - name: Bootstrap Spack
         run: |
           spack bootstrap now
+          spack bootstrap status
       - name: Find compilers for Spack
         run: |
           spack compiler find

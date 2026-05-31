@@ -25,11 +25,19 @@ jobs:
     strategy:
       matrix:
         image:
-          # can't use default GCC 16 with Pin
+          # Can't use default GCC 16 with Pin
+          # https://github.com/berquist/sst-spack/issues/24
+          #
           # - archlinux:base-devel-20260503.0.523481
           - rockylinux/rockylinux:8.10.20240528
           # container issues?
           # - rockylinux/rockylinux:9.7.20251123
+          - ubuntu:jammy-20260509
+          - ubuntu:noble-20260410
+          # Can't use default GCC 15 with Pin
+          # https://github.com/berquist/sst-spack/issues/24
+          #
+          # - ubuntu:resolute-20260421
         sst-spack-version:
           - '16.0.0'
         python-version:
@@ -44,6 +52,9 @@ jobs:
           if command -v dnf >/dev/null 2>&1; then
               dnf upgrade -y
               dnf install -y git
+          elif command -v apt-get; then
+              apt-get update -y --no-install-recommends
+              apt-get install -y --no-install-recommends git ca-certificates
           elif command -v pacman >/dev/null 2>&1; then
               pacman -Syu --noconfirm
               pacman -S --noconfirm git
@@ -90,6 +101,7 @@ jobs:
       - name: Bootstrap Spack
         run: |
           spack bootstrap now
+          spack bootstrap status
       - name: Find compilers for Spack
         run: |
           spack compiler find
