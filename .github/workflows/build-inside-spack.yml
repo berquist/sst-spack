@@ -79,8 +79,8 @@ jobs:
         with:
           persist-credentials: false
           # Take the latest (develop) version.
-          repository: berquist/spack-packages
-          ref: sst-16
+          repository: spack/spack-packages
+          ref: develop
           path: spack-packages
       - name: Set Spack package repo
         run: |
