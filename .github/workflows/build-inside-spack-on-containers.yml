@@ -58,6 +58,7 @@ jobs:
           rm -rf /host/usr/lib/jvm
           rm -rf /host/usr/local/.ghcup
           rm -rf /host/usr/local/lib/android
+          rm -rf /host/usr/local/share/powershell
           rm -rf /host/usr/share/dotnet
           rm -rf /host/usr/share/swift
           df -h
