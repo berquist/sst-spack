@@ -13,13 +13,11 @@ from typing import List, Optional, Sequence
 # TODO consider building MPI independently of all other variants
 _SAFE_VARIANTS_CORE = ["hdf5", "pdes_mpi", "preview", "profile", "trackevents", "trackperf", "zlib"]
 # dramsim2 vs. dramsim3
-# otf vs. otf2
 # pin ~darwin
 _SAFE_VARIANTS_ELEMENTS = [
     # TODO broken on modern compilers
     # "flashdimmsim",
-    # TODO build cache problems
-    # "goblin",
+    "goblin",
     # TODO problem on macOS
     # "hbm",
     # TODO requires dramsim2 and nvdimmsim
