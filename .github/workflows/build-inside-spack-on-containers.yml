@@ -44,6 +44,7 @@ jobs:
           # - ubuntu:resolute-20260421
         sst-spack-version:
           - '16.0.0'
+          - develop
         python-version:
           - '3.9'
           - '3.14'
