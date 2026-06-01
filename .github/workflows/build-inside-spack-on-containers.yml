@@ -22,6 +22,10 @@ jobs:
     runs-on: ubuntu-24.04
     container:
       image: ${{ matrix.image }}
+      volumes:
+        - /usr/lib:/host/usr/lib
+        - /usr/local:/host/usr/local
+        - /usr/share:/host/usr/share
     strategy:
       matrix:
         image:
@@ -47,6 +51,16 @@ jobs:
     permissions:
       packages: write
     steps:
+      - name: Clean up disk space
+        run: |
+          df -h
+          rm -rf /__t/*
+          rm -rf /host/usr/lib/jvm
+          rm -rf /host/usr/local/.ghcup
+          rm -rf /host/usr/local/lib/android
+          rm -rf /host/usr/share/dotnet
+          rm -rf /host/usr/share/swift
+          df -h
       - name: Install Git (Unix)
         run: |
           if command -v dnf >/dev/null 2>&1; then
