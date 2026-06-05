@@ -16,9 +16,7 @@ permissions: {}
 jobs:
   install-spack:
     name: >-
-      os:${{ matrix.os }} /
-      sst:${{ matrix.sst-spack-version }} /
-      python:${{ matrix.python-version }}
+      os:${{ matrix.os }} / sst:${{ matrix.sst-spack-version }} / python:${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
