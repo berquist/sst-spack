@@ -16,9 +16,7 @@ permissions: {}
 jobs:
   install-spack-inside-container:
     name: >-
-      image:${{ matrix.image }} /
-      sst:${{ matrix.sst-spack-version }} /
-      python:${{ matrix.python-version }}
+      image:${{ matrix.image }} / sst:${{ matrix.sst-spack-version }} / python:${{ matrix.python-version }}
     runs-on: ubuntu-24.04
     container:
       image: ${{ matrix.image }}
