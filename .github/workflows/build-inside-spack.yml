@@ -52,7 +52,7 @@ jobs:
               sudo rm -rf /usr/share/swift
           fi
           df -h
-      - name: Install Git (Unix)
+      - name: Install Git
         run: |
           if command -v dnf >/dev/null 2>&1; then
               dnf upgrade -y
@@ -64,11 +64,10 @@ jobs:
               pacman -Syu --noconfirm
               pacman -S --noconfirm git
           fi
-        if: ${{ runner.os != 'Windows' }}
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6
         with:
           persist-credentials: false
-      - name: Install system-level dependencies (Unix)
+      - name: Install system-level dependencies
         run: |
           if [[ "${USE_SUDO}" == true ]]; then
               sudo bash .github/workflows/install_os_deps.sh
@@ -78,7 +77,6 @@ jobs:
         env:
           USE_SUDO: true
         shell: bash
-        if: ${{ runner.os != 'Windows' }}
       - name: Clone Spack
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6
         with:
