@@ -110,6 +110,9 @@ jobs:
       - name: Find compilers for Spack
         run: |
           spack compiler find
+      - name: Configure Spack to use ccache
+        run: |
+          spack config add config:ccache:true
       - name: Print Spack configuration
         run: |
           spack config blame config
