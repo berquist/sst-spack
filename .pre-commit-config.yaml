@@ -43,7 +43,7 @@ repos:
     rev: v1.25.2
     hooks:
       - id: zizmor
-        args: [--persona=pedantic]
+        args: [--no-progress, --persona=pedantic, --fix=all]
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.21.2
     hooks:
