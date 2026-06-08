@@ -11,6 +11,10 @@ on:
   workflow_call:
   workflow_dispatch:
 
+concurrency:
+  group: build-inside-spack-on-containers-${{github.ref}}-${{github.event.pull_request.number || github.run_number}}
+  cancel-in-progress: true
+
 permissions: {}
 
 jobs:
@@ -30,16 +34,16 @@ jobs:
           # Can't use default GCC 16 with Pin
           # https://github.com/berquist/sst-spack/issues/24
           #
-          # - archlinux:base-devel-20260503.0.523481
-          - rockylinux/rockylinux:8.10.20240528
+          # - archlinux:base-devel-20260503.0.523481@sha256:fdff15f24df062598faebf380430955a9bd2109736e179ebb354f1208f725774
+          - rockylinux/rockylinux:8.10.20240528@sha256:e8a49c5403b687db05d4d67333fa45808fbe74f36e683cec7abb1f7d0f2338c6
           # container issues?
-          # - rockylinux/rockylinux:9.7.20251123
-          - ubuntu:jammy-20260509
-          - ubuntu:noble-20260410
+          # - rockylinux/rockylinux:9.7.20251123@sha256:53f4c6dcb34e1403bd93207351f0af9a593610faeb7165cb8a037346765199b0
+          - ubuntu:jammy-20260509@sha256:4f838adc7181d9039ac795a7d0aba05a9bd9ecd480d294483169c5def983b64d
+          - ubuntu:noble-20260410@sha256:c4a8d5503dfb2a3eb8ab5f807da5bc69a85730fb49b5cfca2330194ebcc41c7b
           # Can't use default GCC 15 with Pin
           # https://github.com/berquist/sst-spack/issues/24
           #
-          # - ubuntu:resolute-20260421
+          # - ubuntu:resolute-20260421@sha256:f3d28607ddd78734bb7f71f117f3c6706c666b8b76cbff7c9ff6e5718d46ff64
         sst-spack-version:
           - '16.0.0'
           - develop
@@ -48,7 +52,7 @@ jobs:
           - '3.14'
       fail-fast: false
     permissions:
-      packages: write
+      packages: write  # spack.yaml autopushes to remote OCI repo
     steps:
       - name: Clean up disk space
         run: |
@@ -128,7 +132,9 @@ jobs:
           git config --global --add safe.directory /__w/sst-spack/sst-spack
       - name: Concretize and install environment
         run: |
-          ./run.sh ${{ matrix.sst-spack-version }} ${{ matrix.python-version }}
+          ./run.sh "${MATRIX_SST_SPACK_VERSION}" "${MATRIX_PYTHON_VERSION}"
         env:
+          MATRIX_SST_SPACK_VERSION: "${{ matrix.sst-spack-version }}"
+          MATRIX_PYTHON_VERSION: "${{ matrix.python-version }}"
           SPACK_OCI_USERNAME: "${{ github.actor }}"
           SPACK_OCI_PASSWORD: "${{ secrets.PACKAGE_REPO_TOKEN }}"

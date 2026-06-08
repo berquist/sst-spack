@@ -11,6 +11,10 @@ on:
   workflow_call:
   workflow_dispatch:
 
+concurrency:
+  group: build-inside-spack-${{github.ref}}-${{github.event.pull_request.number || github.run_number}}
+  cancel-in-progress: true
+
 permissions: {}
 
 jobs:
@@ -33,7 +37,7 @@ jobs:
           - '3.14'
       fail-fast: false
     permissions:
-      packages: write
+      packages: write  # spack.yaml autopushes to remote OCI repo
     steps:
       - name: Clean up disk space
         run: |
@@ -115,7 +119,9 @@ jobs:
           git config --global --add safe.directory /__w/sst-spack/sst-spack
       - name: Concretize and install environment
         run: |
-          ./run.sh ${{ matrix.sst-spack-version }} ${{ matrix.python-version }}
+          ./run.sh "${MATRIX_SST_SPACK_VERSION}" "${MATRIX_PYTHON_VERSION}"
         env:
+          MATRIX_SST_SPACK_VERSION: "${{ matrix.sst-spack-version }}"
+          MATRIX_PYTHON_VERSION: "${{ matrix.python-version }}"
           SPACK_OCI_USERNAME: "${{ github.actor }}"
           SPACK_OCI_PASSWORD: "${{ secrets.PACKAGE_REPO_TOKEN }}"
