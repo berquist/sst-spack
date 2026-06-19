@@ -1,5 +1,5 @@
 # 24.04, noble-20250127, noble, latest
-FROM ubuntu:26.04@sha256:f3d28607ddd78734bb7f71f117f3c6706c666b8b76cbff7c9ff6e5718d46ff64
+FROM ubuntu:26.04@sha256:e153663f92c94118ff22a5dc397b59b351ffd695480566debb5850e017e5937a
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get -y update \
