@@ -103,8 +103,14 @@ jobs:
           ref: e88eef45e3633db6a5705d403acaef552d520fe2
       - name: Add Spack to PATH and set mirror name
         run: |
+          echo "PATH: ${PATH}"
           echo "${PWD}/spack/bin" >> "${GITHUB_PATH}"
           echo "mirror_name=github-container-registry" >> "${GITHUB_ENV}"
+      - name: ci debugging
+        run: |
+          echo "PATH: ${PATH}"
+          echo "GITHUB_PATH: ${GITHUB_PATH}"
+          cat "${GITHUB_PATH}"
       - name: Clone Spack package repo
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7
         with:
