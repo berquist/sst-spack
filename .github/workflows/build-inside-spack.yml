@@ -83,10 +83,9 @@ jobs:
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7
         with:
           persist-credentials: false
-          # Take the latest (develop) version.
           repository: spack/spack
           path: spack
-          ref: e88eef45e3633db6a5705d403acaef552d520fe2
+          ref: v1.2.0
       - name: Add Spack to PATH and set mirror name
         run: |
           echo "${PWD}/spack/bin" >> "${GITHUB_PATH}"
@@ -95,7 +94,6 @@ jobs:
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7
         with:
           persist-credentials: false
-          # Take the latest (develop) version.
           repository: spack/spack-packages
           ref: develop
           path: spack-packages
