@@ -85,7 +85,7 @@ jobs:
           persist-credentials: false
           repository: spack/spack
           path: spack
-          ref: v1.2.0
+          ref: v1.2.1
       - name: Add Spack to PATH and set mirror name
         run: |
           echo "${PWD}/spack/bin" >> "${GITHUB_PATH}"
