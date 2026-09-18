@@ -21,7 +21,7 @@ jobs:
   install-spack-inside-container:
     name: >-
       image:${{ matrix.image }} / sst:${{ matrix.sst-spack-version }} / python:${{ matrix.python-version }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     container:
       image: ${{ matrix.image }}
       volumes:
