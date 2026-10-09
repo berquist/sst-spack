@@ -45,7 +45,7 @@ repos:
       - id: zizmor
         args: [--no-progress, --persona=pedantic, --fix=all]
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.21.2
+    rev: v3.22.0
     hooks:
       - id: pyupgrade
         args: [--py37-plus]
