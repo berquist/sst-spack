@@ -1,4 +1,4 @@
-FROM rockylinux:9.3.20231119@sha256:d7be1c094cc5845ee815d4632fe377514ee6ebcf8efaed6892889657e5ddaaa6
+FROM rockylinux:10.3.20261112@sha256:48fbd5632d0593a347f3a36b30ae857b3a4a66862a013be9d2ce47d1eb94d61c
 
 RUN dnf -y upgrade \
     && dnf -y install \
